@@ -10,3 +10,6 @@ secret = "f810bd1fc2d3423d8009b28470cb7024"
 os.environ['SPOTIPY_CLIENT_ID']= cid
 os.environ['SPOTIPY_CLIENT_SECRET']= secret
 os.environ['SPOTIPY_REDIRECT_URI']='http://localhost:8888/callback'
+
+
+hi benjy
