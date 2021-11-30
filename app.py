@@ -2,7 +2,7 @@ import os
 import json
 
 import spotipy
-from spotipy.oauth2 import SpotifyClientCredentials
+from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
 import spotipy.util as util
 
 cid = "28832d036d4341d68dc4acea6dfc94b5"
@@ -22,34 +22,45 @@ token = util.prompt_for_user_token(username, scope)
 
 if token:
     sp = spotipy.Spotify(auth=token)
-else:
-    print("Can't get token for", username)
-
-if token:
-    sp = spotipy.Spotify(auth=token)
     results = sp.current_user_top_tracks(limit=50,offset=0,time_range='medium_term')
     for song in range(50):
         list = []
         list.append(results)
         with open('top50_data.json', 'w', encoding='utf-8') as f:
             json.dump(list, f, ensure_ascii=False, indent=4)
-else:
-    print("Can't get token for", username)
-
-print("hello")
-with open('top50_data.json', encoding='utf-8') as f:
-    data = json.load(f)
-    listOfResults = data[0]["items"]
-    artistNames = []
-    songNames = []
-    for result in listOfResults:
-        artistName = result["artists"][0]["name"]
-        artistNames.append(artistName)
-        songName = result["name"]
-        songNames.append(songName)
+    print("hello")
+    with open('top50_data.json', encoding='utf-8') as f:
+        data = json.load(f)
+        listOfResults = data[0]["items"]
+        artistNames = []
+        songNames = []
+        URIs = []
+        for result in listOfResults:
+            artistName = result["artists"][0]["name"]
+            artistNames.append(artistName)
+            songName = result["name"]
+            songNames.append(songName)
+            URI = result["uri"]
+            URIs.append(URI)
     print(songNames)
     print(artistNames)
 
+    
+else:
+    print("Can't get token for", username)
+
+
+ 
+sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+
+# results = sp.artist_albums(URIs[0], album_type='album')
+#     albums = results['items']
+#     while results['next']:
+#         results = sp.next(results)
+#         albums.extend(results['items'])
+
+#     for album in albums:
+        # print(album['name'])
 result = sp.search("Ricky Montgomery")
 track = result['tracks']['items'][0]
 
