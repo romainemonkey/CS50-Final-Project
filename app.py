@@ -52,21 +52,8 @@ else:
 
  
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
-
-# results = sp.artist_albums(URIs[0], album_type='album')
-#     albums = results['items']
-#     while results['next']:
-#         results = sp.next(results)
-#         albums.extend(results['items'])
-
-#     for album in albums:
-        # print(album['name'])
 result = sp.search("Ricky Montgomery")
 track = result['tracks']['items'][0]
 
 artist = sp.artist(track["artists"][0]["external_urls"]["spotify"])
-print("artist genres:", artist["genres"])
-
-album = sp.album(track["album"]["external_urls"]["spotify"])
-print("album genres:", album["genres"])
-print("album release-date:", album["release_date"])
+print("artist genres:", artist["genres"][0])
