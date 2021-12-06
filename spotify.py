@@ -1,6 +1,6 @@
 import os
 import json
-
+import sqlite3
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
 import spotipy.util as util
@@ -28,7 +28,6 @@ if token:
         list.append(results)
         with open('top50_data.json', 'w', encoding='utf-8') as f:
             json.dump(list, f, ensure_ascii=False, indent=4)
-    print("hello")
     with open('top50_data.json', encoding='utf-8') as f:
         data = json.load(f)
         listOfResults = data[0]["items"]
@@ -42,18 +41,39 @@ if token:
             songNames.append(songName)
             URI = result["uri"]
             URIs.append(URI)
-    print(songNames)
-    print(artistNames)
 
     
 else:
     print("Can't get token for", username)
 
+sqliteConnect = sqlite3.connect("test.db")
+cursor = sqliteConnect.cursor()
 
- 
-sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
-result = sp.search("Ricky Montgomery")
-track = result['tracks']['items'][0]
+# sqlCommand = """CREATE TABLE temp ( 
+# artist_name STRING,
+# genres STRING,
+# popularity INT
+# );"""
 
-artist = sp.artist(track["artists"][0]["external_urls"]["spotify"])
-print("artist genres:", artist["genres"][0])
+# cursor.execute(sqlCommand)
+
+for name in artistNames:
+    sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+    result = sp.search(name)
+    track = result['tracks']['items'][0]
+
+    artist = sp.artist(track["artists"][0]["external_urls"]["spotify"])
+
+    genres = ""
+    if (artist["genres"] != []):
+        for genre in artist["genres"]:
+            genres = genres + "|" + genre
+    print(name)
+    print(genres)
+    print(artist["popularity"])
+    sqlCommand = """INSERT INTO temp VALUES ("{name}", "{genres}", {popularity})""".format(name=name, genres=genres, popularity=artist["popularity"])
+    cursor.execute(sqlCommand)
+query = """SELECT * FROM temp"""
+fetch = cursor.execute(query)
+print(fetch.fetchall())
+sqliteConnect.close()
