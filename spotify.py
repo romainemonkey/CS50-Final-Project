@@ -76,19 +76,13 @@ def dothings():
                     genres[genre] = 1
         meanPop += artist["popularity"]
     meanPop = meanPop/50
-    print(meanPop)
-    print(artistNames)
-    print(songNames)
     sortedGenres = dict(sorted(genres.items(), key = lambda kv: kv[1]))
-    print(sortedGenres)
     
 
 
     # artist test by benjy
     sqliteConnect = sqlite3.connect("test.db")
     cursor = sqliteConnect.cursor()
-    artistNames = ['The Childlike Empress','Bright Eyes','Yasmin Williams','No-No Boy','Coldplay','BTS','Ed Sheeran','Little Simz','Aaliyah','Drake','The Weeknd']
-
     comments = []
 
     uniqueArtists = set(artistNames)
@@ -140,4 +134,6 @@ def dothings():
     sqliteConnect.close()
     return(comments)
     return (authors, comments)
-dothings()
+
+if __name__ == "__main__":
+    dothings()

@@ -9,8 +9,10 @@ app = Flask(__name__)
 @app.route('/', methods=["GET", "POST"])
 def index():
     if request.method == "GET":
+        print("hello1")
         return render_template('index.html')
     elif request.method == "POST":
+        print("hello2")
         vals = dothings()
 
         if vals == 0 or vals == 1:
