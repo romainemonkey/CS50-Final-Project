@@ -66,10 +66,16 @@ body a:hover {
     margin: 10px 0px;
   }
 
-  .button:hover {
+  .enabled:hover {
       background-color: #f1276c;
       color: #ffffff;
       cursor: pointer;
+  }
+
+  .disabled:hover {
+      background-color: #ffffff;
+      cursor: not-allowed;
+      color: #555555;
   }
 
 /*  p:last-child {

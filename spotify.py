@@ -20,6 +20,7 @@ def dothings():
 
     username = ""
     client_credentials_manager = SpotifyClientCredentials(client_id=cid, client_secret=secret)
+
     try:
         sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
     except:
@@ -28,7 +29,7 @@ def dothings():
     try:
         token = util.prompt_for_user_token(username, scope)
     except:
-        return 0
+        return 1
 
     if token:
         sp = spotipy.Spotify(auth=token)

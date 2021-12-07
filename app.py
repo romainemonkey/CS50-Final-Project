@@ -9,10 +9,17 @@ def index():
     if request.method == "GET":
         return render_template('index.html')
     elif request.method == "POST":
-        if dothings() == 0:
+        vals = dothings()
+        print(vals)
+        authors = []
+        comments = []
+
+        if vals == 0 or vals == 1:
             return render_template('failure.html')
+        else:
+            return render_template('results.html',vals=vals)
 
-
+# deal with this benjy
 @app.route('/results')
 def results():
     return render_template('results.html')

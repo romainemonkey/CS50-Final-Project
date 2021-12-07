@@ -8,7 +8,7 @@
 <div class="grid">
     <h1>benjy and will listen to your music</h1>
     <p>Have you ever wanted two people you don't know to listen to all the music you like, and then, without prompting and at length, give their own opinion on that music?</p>
-    <form action="/results" method="/post"><button class="button" type="submit">I badly want this</button></form>
+    <form action="/" method="post"><button class="button enabled" id="button-1" type="submit">I badly want this</button></form>
     <hr style="margin: 10px 0px;">
     <h2>Who are you?</h2>
     <p>Benjy and Will</p>
@@ -22,5 +22,16 @@
     <img src="/static/marquee.png" alt="benjy and will"> 
     </marquee>
 </marquee>
+
+<script>
+    button1 = document.getElementById("button-1");
+    button1.addEventListener("click", myFunction);
+    
+    function myFunction() {
+        button1.disabled = true;
+        button1.className = "button disabled";
+        button1.innerHTML = "Loading your results ...";
+    }
+    </script>
 {% endblock %}
 
