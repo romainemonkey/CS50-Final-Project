@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from spotify import dothings
+import sqlite3
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
@@ -11,7 +12,9 @@ def index():
     if request.method == "GET":
         return render_template('index.html')
     elif request.method == "POST":
-        if dothings() == 0
+        if dothings() == 0:
+            return render_template('failure.html')
+        else:
 
 
 @app.route('/results')
