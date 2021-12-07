@@ -1,0 +1,30 @@
+CREATE TABLE gencoms (
+    genre STRING,
+    will STRING,
+    benjy STRING
+);
+
+CREATE TABLE artcoms (
+    artist STRING,
+    will STRING,
+    benjy STRING
+);
+
+CREATE TABLE popcoms (
+    range INT,
+    will STRING,
+    benjy STRING
+    
+)
+
+CREATE TABLE soncoms (
+    song STRING,
+    will STRING,
+    benjy STRING
+);
+
+CREATE TABLE rancoms (
+    id INTEGER,
+    will STRING,
+    benjy STRING
+);
