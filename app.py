@@ -1,11 +1,8 @@
 from flask import Flask, render_template, request
-from flask_sqlalchemy import SQLAlchemy
 from spotify import dothings
 import sqlite3
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
-db = SQLAlchemy(app)
 
 @app.route('/', methods=["GET", "POST"])
 def index():
