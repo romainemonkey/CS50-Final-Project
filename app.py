@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from spotify import dothings
 import sqlite3
 import numpy
+import random
 
 app = Flask(__name__)
 
@@ -11,13 +12,12 @@ def index():
         return render_template('index.html')
     elif request.method == "POST":
         vals = dothings()
-        print(vals)
 
         if vals == 0 or vals == 1:
             return render_template('failure.html')
         else:
-            vals = numpy.transpose(vals)
-            print(vals)
+            # shuffle vals
+            vals = random.sample(vals,len(vals))
             return render_template('results.html',vals=vals)
 
 # deal with this benjy

@@ -28,6 +28,7 @@ body p {
     font-weight: 500;
     font-size: 1em;
     margin: 0;
+    color: #000000;
 }
 
 body a {
@@ -78,11 +79,29 @@ body a:hover {
       color: #555555;
   }
 
-/*  p:last-child {
-      margin-bottom: 30px;
-  }*/
 
   ::selection{
       color: #ffffff;
       background-color: #f1276c;
+  }
+
+  span.highlight {
+      font-weight: 800;
+      color: #f1476c;
+  }
+
+  span.will:before {
+      content:url("will-64.png");
+  }
+
+  span.will, span.benjy {
+      font-weight: 800;
+  }
+
+  span.benjy:before {
+      content:url("benjy-64.png");
+  }
+  
+  div.container p {
+      vertical-align:middle;
   }

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>test</title>
+        <style>
+            p {color: black; font-weight:normal;}
+            .highlight {color:pink; font-weight:bold;}
+        </style>
+    </head>
+    <body>
+        <p class="item">i see you like !@indie pop@! and other genres</p>
+        <p class="item">i guess i've heard of !@twenty one pilots@! before</p>
+        <script>
+            comments = document.getElementsByClassName("item");
+            for (let i = 0; i < comments.length; i++) {
+                var newhtml;
+                newhtml = comments[i].innerHTML.replace("!@","<span class='highlight'>");
+                newhtml = newhtml.replace("@!","</span>");
+                comments[i].innerHTML = newhtml;
+            }
+        </script>
+    </body>
+</html>

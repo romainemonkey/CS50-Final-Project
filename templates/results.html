@@ -7,13 +7,24 @@
 {% block body %}
 <div class="grid">
     <h1>Your results</h1>
+    <p><span class="highlight">test</span></p>
+    <table>
     {% for val in vals %}
-        {% if val[0] == 'Benjy' %}
-            <p style="text-align:left;"><strong>{{val[0]}}:</strong> {{val[1]}}</p>
-        {% elif val[0] == 'Will' %}
-            <p style="text-align:right;"><strong>{{val[0]}}:</strong> {{val[1]}}</p>
-        {% endif %}
+    <tr><td><span class="item">{{val}}</span></td></tr>
     {% endfor %}
     <p><a href="/">Go back</a></p>
+    </table>
 </div>
+<script>
+    comments = document.getElementsByClassName("item");
+    for (let i = 0; i < comments.length; i++) {
+        newhtml = comments[i].innerHTML;
+        newhtml = newhtml.replace("!@","<span class='highlight'>");
+        newhtml = newhtml.replace("@!","</span>");
+        newhtml = newhtml.replace("@#Will:", "<td><span class='will'>Will:");
+        newhtml = newhtml.replace("@#Benjy:","<span class='benjy'>Benjy:</span></td>");
+        newhtml = newhtml.replace("#@","</span></td>");
+        comments[i].innerHTML = newhtml;
+    }
+</script>
 {% endblock %}
