@@ -13,9 +13,8 @@ CREATE TABLE artcoms (
 CREATE TABLE popcoms (
     range INT,
     will STRING,
-    benjy STRING
-    
-)
+    benjy STRING  
+);
 
 CREATE TABLE soncoms (
     song STRING,

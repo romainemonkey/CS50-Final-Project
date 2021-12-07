@@ -8,6 +8,7 @@ import json
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
 import spotipy.util as util
+import math
 
 cid = "28832d036d4341d68dc4acea6dfc94b5"
 secret = "f810bd1fc2d3423d8009b28470cb7024"
@@ -90,7 +91,9 @@ def index():
                     else:
                         genres[genre] = 1
             meanPop += artist["popularity"]
+
         meanPop = meanPop/50
+
         sortedGenres = dict(sorted(genres.items(), key = lambda kv: kv[1]))
         
 
@@ -99,6 +102,20 @@ def index():
         sqliteConnect = sqlite3.connect("test.db")
         cursor = sqliteConnect.cursor()
         comments = []
+
+
+
+        # add comments based on mean popularity of songs
+        popCheck = 10 * round(meanPop/10)
+        print("popCheck: " + str(popCheck))
+        if popCheck < 40:
+            popCheck = 40
+        if popCheck in [40, 50, 60, 70, 80, 90, 100]:
+            query = """SELECT * FROM popcoms WHERE range = "{}" """.format(popCheck)
+            data = cursor.execute(query).fetchall()
+            comments.append("@#Benjy: #@" + data[0][2])
+            comments.append("@#Will: #@" + data[0][1])
+
 
         uniqueArtists = set(artistNames)
         uniqueArtists = list(uniqueArtists)
@@ -117,7 +134,7 @@ def index():
 
         query = """SELECT * FROM rancoms"""
         rancoms = cursor.execute(query).fetchall()
-        randartno = 3
+        randartno = 5
 
         randarts = random.sample(list(numpy.linspace(0,len(uniqueArtists)-1,len(uniqueArtists))),randartno)
 
