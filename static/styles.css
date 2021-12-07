@@ -105,3 +105,11 @@ body a:hover {
   div.container p {
       vertical-align:middle;
   }
+
+  hr {
+    margin: 10px 0px;
+  }
+
+  .item {
+      margin: 10px 0px;
+  }

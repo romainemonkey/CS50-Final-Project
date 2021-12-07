@@ -6,14 +6,12 @@
 
 {% block body %}
 <div class="grid">
-    <h1>Your results</h1>
-    <p><span class="highlight">test</span></p>
-    <table>
-    {% for val in vals %}
-    <tr><td><span class="item">{{val}}</span></td></tr>
-    {% endfor %}
+    <h1>Here's what we thought.</h1>
+        {% for val in vals %}
+        <div class="item">{{val}}</div>
+        {% endfor %}
+    <hr>
     <p><a href="/">Go back</a></p>
-    </table>
 </div>
 <script>
     comments = document.getElementsByClassName("item");
@@ -21,9 +19,8 @@
         newhtml = comments[i].innerHTML;
         newhtml = newhtml.replace("!@","<span class='highlight'>");
         newhtml = newhtml.replace("@!","</span>");
-        newhtml = newhtml.replace("@#Will:", "<span class='will'>Will:</span>");
-        newhtml = newhtml.replace("@#Benjy:","<span class='benjy'>Benjy:</span>");
-        newhtml = newhtml.replace("#@","</span></td><p>hey</p><td><span>");
+        newhtml = newhtml.replace("@#Will: #@", "<span class='will'>Will: </span>");
+        newhtml = newhtml.replace("@#Benjy: #@","<span class='benjy'>Benjy: </span>");
         comments[i].innerHTML = newhtml;
     }
 </script>
