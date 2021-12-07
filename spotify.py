@@ -91,16 +91,22 @@ def dothings():
 
     uniqueArtists = list(set(artistNames))
     for artist in uniqueArtists:
-        bcheck = "SELECT benjy FROM artcoms WHERE artist = ?", artist.lower()
+        query = "SELECT benjy FROM artcoms WHERE artist = ?", artist.lower()
+        data = cursor.execute(query).fetchall()
+        bcheck = data[0][0]
         if len(bcheck) != 0:
-            comments.append(bcheck[0]["benjy"])
+            comments.append(bcheck)
             authors.append("Benjy")
-        wcheck = "SELECT will FROM artcoms WHERE artist = ?", artist.lower()
+        query = "SELECT will FROM artcoms WHERE artist = ?", artist.lower()
+        data = cursor.execute(query).fetchall()
+        wcheck = data[0][0]
         if len(wcheck) != 0:
-            comments.append(wcheck[0]["will"])
-            authors.append("Will")
+            comments.append(wcheck)
+            authors.append("will")
 
-    rancoms = "SELECT * FROM rancoms"
+    query = "SELECT * FROM rancoms"
+    data = cursor.execute(query).fetchall()
+    rancoms = data[0]
     randartno = 3
     randids = random.sample(numpy.linspace(0,len(rancoms)-1,len(rancoms)),randartno)
     for i in range(len(randids)):
@@ -111,9 +117,12 @@ def dothings():
             comments.append(rancoms[randids[i]]["will'"])
             authors.append("Will")
 
+    command = """INSERT INTO temp VALUES ("hello", "hello", 1)"""
+    cursor.execute(command)
 
-
-
+    query = """SELECT * FROM temp"""
+    data = cursor.execute(query).fetchall()
+    print(data)
 
 
 
