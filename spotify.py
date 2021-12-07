@@ -55,15 +55,8 @@ def dothings():
 
     sqliteConnect = sqlite3.connect("test.db")
     cursor = sqliteConnect.cursor()
-
-    # sqlCommand = """CREATE TABLE temp ( 
-    # artist_name STRING,
-    # genres STRING,
-    # popularity INT
-    # );"""
-
-    # cursor.execute(sqlCommand)
-
+    genres = {}
+    meanPop = 0
     for name in artistNames:
         sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
         result = sp.search(name)
@@ -71,19 +64,20 @@ def dothings():
 
         artist = sp.artist(track["artists"][0]["external_urls"]["spotify"])
 
-        genres = ""
         if (artist["genres"] != []):
             for genre in artist["genres"]:
-                genres = genres + "|" + genre
-        # print(name)
-        # print(genres)
-        # print(artist["popularity"])
-        sqlCommand = """INSERT INTO temp VALUES ("{name}", "{genres}", {popularity})""".format(name=name, genres=genres, popularity=artist["popularity"])
-        cursor.execute(sqlCommand)
-    query = """SELECT * FROM temp"""
-    fetch = cursor.execute(query)
-    # print(fetch.fetchall())
-
-    print(fetch.fetchall()[0])
+                if genre in genres.keys():
+                    genres[genre] += 1
+                else:
+                    genres[genre] = 1
+        meanPop += artist["popularity"]
+    meanPop = meanPop/50
+    print(meanPop)
+    print(artistNames)
+    print(songNames)
+    sortedGenres = dict(sorted(genres.items(), key = lambda kv: kv[1]))
+    print(sortedGenres)
     sqliteConnect.close()
     return 1
+
+dothings()
