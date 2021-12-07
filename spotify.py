@@ -109,20 +109,20 @@ def dothings():
 
     randids = random.sample(list(numpy.linspace(0,len(rancoms)-2,len(rancoms)-1)),randartno)
     for i in range(len(randids)):
-        if rancoms[int(randids[i])][2]:
-            comments.append(rancoms[int(randids[i])][2])
+        if rancoms[int(randids[i])+1][2]:
+            comments.append(rancoms[int(randids[i])+1][2])
             authors.append("Benjy")
-        elif rancoms[int(randids[i])][1]:
-            comments.append(rancoms[int(randids[i])][1])
+        elif rancoms[int(randids[i])+1][1]:
+            comments.append(rancoms[int(randids[i])+1][1])
             authors.append("Will")
 
 
-    command = """INSERT INTO temp VALUES ("hello", "hello", 1)"""
-    cursor.execute(command)
+    # command = """INSERT INTO temp VALUES ("hello", "hello", 1)"""
+    # cursor.execute(command)
 
-    query = """SELECT * FROM temp"""
-    data = cursor.execute(query).fetchall()
-    print(data)
+    # query = """SELECT * FROM temp"""
+    # data = cursor.execute(query).fetchall()
+    # print(data)
 
 
 

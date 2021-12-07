@@ -8,10 +8,8 @@
 <div class="grid">
     <h1>Your results</h1>
     {% for val in vals %}
-    <p>{{val}}</p>
-    <!-- <p><strong>{{val[0]}}:</strong> {{val[1]}}</p> -->
+    <p><strong>{{val[0]}}:</strong> {{val[1]}}</p>
     {% endfor %}
-    {{val|length}}
     <p><a href="/">Go back</a></p>
 </div>
 {% endblock %}

@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from spotify import dothings
 import sqlite3
+import numpy
 
 app = Flask(__name__)
 
@@ -11,12 +12,12 @@ def index():
     elif request.method == "POST":
         vals = dothings()
         print(vals)
-        authors = []
-        comments = []
 
         if vals == 0 or vals == 1:
             return render_template('failure.html')
         else:
+            vals = numpy.transpose(vals)
+            print(vals)
             return render_template('results.html',vals=vals)
 
 # deal with this benjy
