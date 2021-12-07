@@ -1,19 +1,33 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,500;0,800;1,300;1,500;1,800&display=swap");
 
 body {
+    margin: 30px 0px;
     font-family: "Open Sans", sans-serif;
-    background-color: #efbdeb;
+    background-color: #f8f1f9;
     color: #000000;
 }
 
 body h1 {
     font-weight: 800;
-    font-size: 200px;
+    font-size: 3em;
+    margin-bottom: 20px;
+    line-height: 1em;
+}
+
+body h2 {
+    font-weight: 800;
+    font-size: 1.5em;
+    margin: 0;
+}
+
+body p+h2 {
+    margin-top: 20px;
 }
 
 body p {
-    font-weight: 300;
-    font-size: 16px;
+    font-weight: 500;
+    font-size: 1em;
+    margin: 0;
 }
 
 body a {
@@ -34,11 +48,35 @@ body a:hover {
 
 @media (max-width: 640px){
     .grid {
-        padding:60px;
-        margin: 60px;
+        padding: 0px 30px;
     }
 }
 
-h1 {
-    margin-top: 60px;
-}
+.button {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 500;
+    background-color: #ffffff;
+    border: none;
+    color: #000000;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 0px;
+  }
+
+  .button:hover {
+      background-color: #f1276c;
+      color: #ffffff;
+      cursor: pointer;
+  }
+
+/*  p:last-child {
+      margin-bottom: 30px;
+  }*/
+
+  ::selection{
+      color: #ffffff;
+      background-color: #f1276c;
+  }

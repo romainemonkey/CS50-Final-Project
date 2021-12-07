@@ -7,16 +7,18 @@
 {% block body %}
 <div class="grid">
     <h1>benjy and will listen to your music</h1>
-    <p>Have you ever wanted two people you don't know to listen to all the music you like, and then, unsolicited and at length, give their own opinion on that music? We have the tool for you.</p>
+    <p>Have you ever wanted two people you don't know to listen to all the music you like, and then, without prompting and at length, give their own opinion on that music?</p>
+    <form action="/results" method="/post"><button class="button" type="submit">I badly want this</button></form>
+    <hr style="margin: 10px 0px;">
     <h2>Who are you?</h2>
-    <p>We are Benjy and Will.</p>
+    <p>Benjy and Will.</p>
     <h2>How does this work?</h2>
-    <p>We've set up a script to scrape data from your Spotify account. Once the data collection is complete, the website emails us your data. We will spend several minutes in person discussing your music, then type up our opinions and send them back to the website, which prints the results.</p>
+    <p>We have written a script to scrape data from your Spotify account. Once the data collection is complete, the website emails us your data. We will spend several minutes in person discussing your music, then manually type up our opinions and send them back to the website, which displays the results.</p>
     <h2>Are you affiliated with Spotify?</h2>
-    <p>No. Spotify has extensive <a href="https://developer.spotify.com/" target="_blank">API documentation</a> that allows developers to play with data. It also <a href="https://twitter.com/youarestars/status/1466165017720598535" target="_blank">pays its artists next to nothing</a> and <a href="https://www.vice.com/en/article/epxxkn/musicians-are-dragging-spotifys-ceo-for-funding-a-military-ai-company" target="_blank">has donated hundreds of millions of dollars to military companies</a>, and we are two college students who made this 12 hours before it was due.</p>
+    <p>No. Spotify has extensive <a href="https://developer.spotify.com/" target="_blank">API documentation</a> that allows developers to play with data. It also <a href="https://web.archive.org/web/20211019054153/https://www.nytimes.com/2021/03/22/technology/streaming-music-economics.html" target="_blank">pays its artists next to nothing</a> and <a href="https://www.vice.com/en/article/epxxkn/musicians-are-dragging-spotifys-ceo-for-funding-a-military-ai-company" target="_blank">has donated hundreds of millions of dollars to military contractors</a>, and we are two college students who made this 12 hours before it was due.</p>
 </div>
-<marquee direction="up" behavior="alternate" style="position:absolute;bottom:0;left:0;right:0;z-index:-1;height:100%;width:100%;">
-    <marquee direction="right" behavior="scroll" scrollamount="20">
+<marquee direction="up" behavior="alternate" scrollamount="3" style="position:absolute;bottom:0;left:0;right:0;z-index:-1;height:100%;width:100%;">
+    <marquee direction="right" behavior="scroll" scrollamount="3">
     <img src="/static/marquee.png" alt="benjy and will"> 
     </marquee>
 </marquee>
