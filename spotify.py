@@ -10,7 +10,7 @@ secret = "f810bd1fc2d3423d8009b28470cb7024"
 
 os.environ['SPOTIPY_CLIENT_ID']= cid
 os.environ['SPOTIPY_CLIENT_SECRET']= secret
-os.environ['SPOTIPY_REDIRECT_URI']='http://localhost:8888/callback'
+os.environ['SPOTIPY_REDIRECT_URI']='http://localhost:5000'
 
 print("i love harvard university")
 
@@ -45,6 +45,7 @@ if token:
     
 else:
     print("Can't get token for", username)
+    # todo: render_template ('failure.html')
 
 sqliteConnect = sqlite3.connect("test.db")
 cursor = sqliteConnect.cursor()
@@ -68,12 +69,14 @@ for name in artistNames:
     if (artist["genres"] != []):
         for genre in artist["genres"]:
             genres = genres + "|" + genre
-    print(name)
-    print(genres)
-    print(artist["popularity"])
+    # print(name)
+    # print(genres)
+    # print(artist["popularity"])
     sqlCommand = """INSERT INTO temp VALUES ("{name}", "{genres}", {popularity})""".format(name=name, genres=genres, popularity=artist["popularity"])
     cursor.execute(sqlCommand)
 query = """SELECT * FROM temp"""
 fetch = cursor.execute(query)
-print(fetch.fetchall())
+# print(fetch.fetchall())
+
+print(fetch.fetchall()[0])
 sqliteConnect.close()
