@@ -4,6 +4,10 @@ import sqlite3
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
 import spotipy.util as util
+import numpy
+import random
+
+
 def dothings():
     cid = "28832d036d4341d68dc4acea6dfc94b5"
     secret = "f810bd1fc2d3423d8009b28470cb7024"
@@ -77,7 +81,44 @@ def dothings():
     print(songNames)
     sortedGenres = dict(sorted(genres.items(), key = lambda kv: kv[1]))
     print(sortedGenres)
+    
+
+
+    # artist test by benjy
+    comments = []
+    authors = []
+
+
+    uniqueArtists = list(set(artistNames))
+    for artist in uniqueArtists:
+        bcheck = "SELECT benjy FROM artcoms WHERE artist = ?", artist.lower()
+        if len(bcheck) != 0:
+            comments.append(bcheck[0]["benjy"])
+            authors.append("Benjy")
+        wcheck = "SELECT will FROM artcoms WHERE artist = ?", artist.lower()
+        if len(wcheck) != 0:
+            comments.append(wcheck[0]["will"])
+            authors.append("Will")
+
+    rancoms = "SELECT * FROM rancoms"
+    randartno = 3
+    randids = random.sample(numpy.linspace(0,len(rancoms)-1,len(rancoms)),randartno)
+    for i in range(len(randids)):
+        if rancoms[randids[i]]["benjy"]:
+            comments.append(rancoms[randids[i]]["benjy"])
+            authors.append("Benjy")
+        elif rancoms[randids[i]]["will"]:
+            comments.append(rancoms[randids[i]]["will'"])
+            authors.append("Will")
+
+
+
+
+
+
+
     sqliteConnect.close()
     return 1
+    
 
 dothings()
