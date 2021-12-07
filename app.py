@@ -9,6 +9,9 @@ import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
 import spotipy.util as util
 
+cid = "28832d036d4341d68dc4acea6dfc94b5"
+secret = "f810bd1fc2d3423d8009b28470cb7024"
+
 app = Flask(__name__)
 
 @app.route('/', methods=["GET", "POST"])
@@ -18,8 +21,6 @@ def index():
         return render_template('index.html')
     elif request.method == "POST":
         print("hello2")
-        cid = "28832d036d4341d68dc4acea6dfc94b5"
-        secret = "f810bd1fc2d3423d8009b28470cb7024"
 
         os.environ['SPOTIPY_CLIENT_ID']= cid
         os.environ['SPOTIPY_CLIENT_SECRET']= secret
@@ -41,6 +42,8 @@ def index():
         except:
             print("error 1")
             return render_template('failure.html')
+
+        print(token)
 
         if token:
             sp = spotipy.Spotify(auth=token)
