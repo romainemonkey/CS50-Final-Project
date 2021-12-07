@@ -8,7 +8,11 @@
 <div class="grid">
     <h1>Your results</h1>
     {% for val in vals %}
-    <p><strong>{{val[0]}}:</strong> {{val[1]}}</p>
+        {% if val[0] == 'Benjy' %}
+            <p style="text-align:left;"><strong>{{val[0]}}:</strong> {{val[1]}}</p>
+        {% elif val[0] == 'Will' %}
+            <p style="text-align:right;"><strong>{{val[0]}}:</strong> {{val[1]}}</p>
+        {% endif %}
     {% endfor %}
     <p><a href="/">Go back</a></p>
 </div>
