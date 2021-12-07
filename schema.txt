@@ -28,3 +28,7 @@ CREATE TABLE rancoms (
     will STRING,
     benjy STRING
 );
+
+.mode csv
+.import csv/rancoms.csv rancoms
+.import csv/artcoms.csv artcoms

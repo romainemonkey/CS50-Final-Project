@@ -34,10 +34,10 @@ def dothings():
         sp = spotipy.Spotify(auth=token)
         results = sp.current_user_top_tracks(limit=50,offset=0,time_range='medium_term')
         for song in range(50):
-            list = []
-            list.append(results)
+            songlist = []
+            songlist.append(results)
             with open('top50_data.json', 'w', encoding='utf-8') as f:
-                json.dump(list, f, ensure_ascii=False, indent=4)
+                json.dump(songlist, f, ensure_ascii=False, indent=4)
         with open('top50_data.json', encoding='utf-8') as f:
             data = json.load(f)
             listOfResults = data[0]["items"]
@@ -88,34 +88,33 @@ def dothings():
     comments = []
     authors = []
 
-
-    uniqueArtists = list(set(artistNames))
+    uniqueArtists = set(artistNames)
     for artist in uniqueArtists:
-        query = "SELECT benjy FROM artcoms WHERE artist = ?", artist.lower()
+        print(artist)
+        query = """SELECT benjy FROM artcoms WHERE artist = "{}" """.format(artist.lower())
         data = cursor.execute(query).fetchall()
-        bcheck = data[0][0]
-        if len(bcheck) != 0:
-            comments.append(bcheck)
+        if data != []:
+            comments.append(data[0][0])
             authors.append("Benjy")
-        query = "SELECT will FROM artcoms WHERE artist = ?", artist.lower()
+        query = """SELECT will FROM artcoms WHERE artist = "{}" """.format(artist.lower())
         data = cursor.execute(query).fetchall()
-        wcheck = data[0][0]
-        if len(wcheck) != 0:
-            comments.append(wcheck)
-            authors.append("will")
-
-    query = "SELECT * FROM rancoms"
-    data = cursor.execute(query).fetchall()
-    rancoms = data[0]
-    randartno = 3
-    randids = random.sample(numpy.linspace(0,len(rancoms)-1,len(rancoms)),randartno)
-    for i in range(len(randids)):
-        if rancoms[randids[i]]["benjy"]:
-            comments.append(rancoms[randids[i]]["benjy"])
-            authors.append("Benjy")
-        elif rancoms[randids[i]]["will"]:
-            comments.append(rancoms[randids[i]]["will'"])
+        if data != []:
+            comments.append(data[0][0])
             authors.append("Will")
+
+    query = """SELECT * FROM rancoms"""
+    rancoms = cursor.execute(query).fetchall()
+    randartno = 3
+
+    randids = random.sample(list(numpy.linspace(0,len(rancoms)-2,len(rancoms)-1)),randartno)
+    for i in range(len(randids)):
+        if rancoms[int(randids[i])][2]:
+            comments.append(rancoms[int(randids[i])][2])
+            authors.append("Benjy")
+        elif rancoms[int(randids[i])][1]:
+            comments.append(rancoms[int(randids[i])][1])
+            authors.append("Will")
+
 
     command = """INSERT INTO temp VALUES ("hello", "hello", 1)"""
     cursor.execute(command)
@@ -127,7 +126,7 @@ def dothings():
 
 
     sqliteConnect.close()
-    return 1
+    return (authors, comments)
     
-
-dothings()
+if __name__ == '__main__':
+    dothings()
