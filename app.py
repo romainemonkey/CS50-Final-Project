@@ -7,13 +7,15 @@ import json
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
 import spotipy.util as util
+from spotify import getCache
+import webbrowser
 
 cid = "28832d036d4341d68dc4acea6dfc94b5"
 secret = "f810bd1fc2d3423d8009b28470cb7024"
-reduri = "http://localhost:5000/"
-
+reduri = "https://google.com"
 app = Flask(__name__)
 
+webbrowser.open('http://localhost:5000/')
 @app.route('/', methods=["GET", "POST"])
 def index():
     if request.method == "GET":
@@ -21,47 +23,28 @@ def index():
         return render_template('index.html')
     else:
         print("hello2")
-
         os.environ['SPOTIPY_CLIENT_ID']= cid
         os.environ['SPOTIPY_CLIENT_SECRET']= secret
         os.environ['SPOTIPY_REDIRECT_URI']=reduri
 
         print("i love harvard university")
 
-        # username = ""
-        client_credentials_manager = SpotifyClientCredentials(client_id=cid, client_secret=secret)
-        # print("33")
-        # try:
-        #     print("35")
-        #     sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
-        #     # sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id='28832d036d4341d68dc4acea6dfc94b5',scope=scope, client_secret='f810bd1fc2d3423d8009b28470cb7024',redirect_uri='http://localhost:5000/'))
-        # except:
-        #     print("error 0")
-        #     return render_template('failure.html')
-        print("40")
         username = ""
+        client_credentials_manager = SpotifyClientCredentials(client_id=cid, client_secret=secret) 
+        sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
         scope = 'user-top-read'
+        token = util.prompt_for_user_token(username, scope)
 
+        if token:
+            sp = spotipy.Spotify(auth=token)
+        else:
+            print("Can't get token for", username)
+        print("40")
         token = util.prompt_for_user_token(username,
                 scope,
                 client_id=cid,
                 client_secret=secret,
                 redirect_uri=reduri)
-
-        # print("token: ")
-        # print(token)
-
-
-        # try:
-        #     print("43")
-        #     token = util.prompt_for_user_token(username,
-        #         scope,
-        #         client_id=cid,
-        #         client_secret=secret,
-        #         redirect_uri=reduri)
-        # except:
-        #     print("error 1")
-        #     return render_template('failure.html')
 
         print("49")
         print(token)
@@ -177,7 +160,11 @@ def index():
         vals = random.sample(comments,len(comments))
         return render_template('results.html',vals=vals)
 
-
+# @app.route('/callback', methods=["GET"])
+# def callback():
+#     code = request.args.get("code")
+#     print(code)
+#     return "hello"
 
 # deal with this benjy
 @app.route('/results')
@@ -189,4 +176,4 @@ def failure():
     return render_template('failure.html')
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
