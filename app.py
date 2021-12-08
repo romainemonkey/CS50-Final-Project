@@ -10,25 +10,29 @@ import spotipy.util as util
 from spotify import getCache
 import webbrowser
 
-cid = "28832d036d4341d68dc4acea6dfc94b5"
-secret = "f810bd1fc2d3423d8009b28470cb7024"
+# sets important global variables
+cid = "9034fffac585493e8a505eb5fbaf7570"
+secret = "820f38bbb98f4651aa4eb7c606322f68"
 reduri = "https://google.com"
 app = Flask(__name__)
 
+# opens the web browser
 webbrowser.open('http://localhost:5000/')
+
+# flask object for the home page and function of the website
 @app.route('/', methods=["GET", "POST"])
 def index():
     if request.method == "GET":
-        print("hello1")
         return render_template('index.html')
     else:
-        print("hello2")
         os.environ['SPOTIPY_CLIENT_ID']= cid
         os.environ['SPOTIPY_CLIENT_SECRET']= secret
         os.environ['SPOTIPY_REDIRECT_URI']=reduri
 
         print("i love harvard university")
 
+
+        # establishes user and spotipy information, which is needed to get the user's token
         username = ""
         client_credentials_manager = SpotifyClientCredentials(client_id=cid, client_secret=secret) 
         sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
@@ -39,24 +43,25 @@ def index():
             sp = spotipy.Spotify(auth=token)
         else:
             print("Can't get token for", username)
-        print("40")
+        # get user token
         token = util.prompt_for_user_token(username,
                 scope,
                 client_id=cid,
                 client_secret=secret,
                 redirect_uri=reduri)
 
-        print("49")
-        print(token)
-
         if token:
             sp = spotipy.Spotify(auth=token)
+            # extracts the user's top 50 songs on spotify from the last 6 months
             results = sp.current_user_top_tracks(limit=50,offset=0,time_range='medium_term')
+            # appends each result to a json file, from which the data will be properly extracted
             for song in range(50):
                 songlist = []
                 songlist.append(results)
                 with open('top50_data.json', 'w', encoding='utf-8') as f:
                     json.dump(songlist, f, ensure_ascii=False, indent=4)
+
+            # the following lines of code sort the pieces of data from the user's top tracks into arrays
             with open('top50_data.json', encoding='utf-8') as f:
                 data = json.load(f)
                 listOfResults = data[0]["items"]
@@ -70,12 +75,11 @@ def index():
                     songNames.append(songName)
                     URI = result["uri"]
                     URIs.append(URI)
-
-            
         else:
             print("error 3")
             return render_template ('failure.html')
 
+        # establish the cursor through which to extract data from test.db
         sqliteConnect = sqlite3.connect("test.db")
         cursor = sqliteConnect.cursor()
         genres = {}

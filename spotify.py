@@ -4,8 +4,8 @@ from spotipy.oauth2 import SpotifyClientCredentials
 import spotipy.util as util
 
 def getCache():
-    cid = "28832d036d4341d68dc4acea6dfc94b5"
-    secret = "f810bd1fc2d3423d8009b28470cb7024"
+    cid = "9034fffac585493e8a505eb5fbaf7570"
+    secret = "820f38bbb98f4651aa4eb7c606322f68"
 
     os.environ['SPOTIPY_CLIENT_ID']= cid
     os.environ['SPOTIPY_CLIENT_SECRET']= secret
