@@ -171,7 +171,6 @@ def index():
         vals = random.sample(comments,len(comments))
         return render_template('results.html',vals=vals)
 
-# deal with this benjy
 @app.route('/results')
 def results():
     return render_template('results.html')
@@ -180,5 +179,6 @@ def results():
 def failure():
     return render_template('failure.html')
 
+# when app.py is executed from the command line
 if __name__ == "__main__":
     app.run(debug=False)
