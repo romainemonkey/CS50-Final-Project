@@ -19,7 +19,7 @@ def index():
     if request.method == "GET":
         print("hello1")
         return render_template('index.html')
-    elif request.method == "POST":
+    else:
         print("hello2")
 
         os.environ['SPOTIPY_CLIENT_ID']= cid

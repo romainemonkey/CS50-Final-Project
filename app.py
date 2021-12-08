@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request
-from spotify import dothings
 import sqlite3
 import numpy
 import random
@@ -8,10 +7,10 @@ import json
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
 import spotipy.util as util
-import math
 
 cid = "28832d036d4341d68dc4acea6dfc94b5"
 secret = "f810bd1fc2d3423d8009b28470cb7024"
+reduri = "http://localhost:5000/"
 
 app = Flask(__name__)
 
@@ -20,30 +19,51 @@ def index():
     if request.method == "GET":
         print("hello1")
         return render_template('index.html')
-    elif request.method == "POST":
+    else:
         print("hello2")
 
         os.environ['SPOTIPY_CLIENT_ID']= cid
         os.environ['SPOTIPY_CLIENT_SECRET']= secret
-        os.environ['SPOTIPY_REDIRECT_URI']='http://localhost:5000/'
+        os.environ['SPOTIPY_REDIRECT_URI']=reduri
 
         print("i love harvard university")
 
-        username = ""
+        # username = ""
         client_credentials_manager = SpotifyClientCredentials(client_id=cid, client_secret=secret)
-
-        try:
-            sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
-        except:
-            print("error 0")
-            return render_template('failure.html')
+        # print("33")
+        # try:
+        #     print("35")
+        #     sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+        #     # sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id='28832d036d4341d68dc4acea6dfc94b5',scope=scope, client_secret='f810bd1fc2d3423d8009b28470cb7024',redirect_uri='http://localhost:5000/'))
+        # except:
+        #     print("error 0")
+        #     return render_template('failure.html')
+        print("40")
+        username = ""
         scope = 'user-top-read'
-        try:
-            token = util.prompt_for_user_token(username, scope)
-        except:
-            print("error 1")
-            return render_template('failure.html')
 
+        token = util.prompt_for_user_token(username,
+                scope,
+                client_id=cid,
+                client_secret=secret,
+                redirect_uri=reduri)
+
+        # print("token: ")
+        # print(token)
+
+
+        # try:
+        #     print("43")
+        #     token = util.prompt_for_user_token(username,
+        #         scope,
+        #         client_id=cid,
+        #         client_secret=secret,
+        #         redirect_uri=reduri)
+        # except:
+        #     print("error 1")
+        #     return render_template('failure.html')
+
+        print("49")
         print(token)
 
         if token:
