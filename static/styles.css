@@ -1,3 +1,4 @@
+/* Import Open Sans, the website's primary font */
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,500;0,800;1,300;1,500;1,800&display=swap");
 
 body {
@@ -47,6 +48,7 @@ body a:hover {
     margin: 0 auto;
 }
 
+/* Adds padding if the user is on a mobile device (on desktop the content will not reach the edges) */
 @media (max-width: 640px){
     .grid {
         padding: 0px 30px;
@@ -89,6 +91,8 @@ body a:hover {
       font-weight: 800;
       color: #f1476c;
   }
+
+ /* Add small avatars of our faces before their corresponding comments */
 
   span.will:before {
       content:url("will-64.png");

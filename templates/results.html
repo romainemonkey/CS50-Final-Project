@@ -6,6 +6,9 @@
 
 {% block body %}
 <div class="grid">
+
+    <!-- Iterate over comments (passed as {vals}), displaying each in a new line -->
+
     <h1>Here's what we thought.</h1>
         {% for val in vals %}
         <div class="item">{{val}}</div>
@@ -14,6 +17,14 @@
     <p>Thanks for allowing yourself to be vulnerable. Click <a href="/">here</a> to return home.</p>
 </div>
 <script>
+
+    // This script is a quirk of the way we decided to format the Python code. Essentially we created style indicators
+    // using ASCII characters: The names of artists are surrounded by !@ @! (e.g. !@Adele@!) in the Python code, and
+    // when passed to HTML we replace those markers with <span class="highlight"> </span> so that the front-end text
+    // is displayed a certain way. The same is done for @# #@, which surround our names ("Will" and "Benjy") preceding
+    // comments.
+
+
     comments = document.getElementsByClassName("item");
     for (let i = 0; i < comments.length; i++) {
         newhtml = comments[i].innerHTML;

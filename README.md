@@ -28,7 +28,7 @@ To do this, visit https://developer.spotify.com/dashboard/ and click "Log In". I
 *username*: bawltymcs50@gmail.com
 *password*: devdevdev
 
-Click on the app called "Benjy and Will Listen to Your Music". Click on "Users and Access", then "Add New User", then input the name and email address associated with the user's Spotify account. (The name field can be anything.) The user should now be authorized, although it may take several minutes to update.
+Click on the app called "Benjy and Will Listen to Your Music". Click on "Users and Access", then "Add New User", then input the name and email address associated with the user's Spotify account. (The name field can be anything.) The user should now be authorized, although it may take several minutes to update. If the user is not correctly authorized (or it has not yet updated), running the code as described below may prompt an error.
 
 ### Running the project
 Run the Python file "app.py". With our Python interpreter, this requires executing "python3 app.py" or "python app.py" in the command line, but implementations may vary depending on the user's setup of VS Code. Upon successful execution a website will open. If the user has previously used the server to log in, the website that opens will be the server homepage (called "Benjy and Will Listen to Your Music"). Otherwise, the website that opens will be a Spotify page prompting the user to log in. In this case, log in using the email that was authorized in the previous step, and click "Agree" when prompted to allow the app to access user data. The website will then redirect to the server homepage.
