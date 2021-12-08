@@ -1,9 +1,3 @@
-CREATE TABLE gencoms (
-    genre STRING,
-    will STRING,
-    benjy STRING
-);
-
 CREATE TABLE artcoms (
     artist STRING,
     will STRING,
@@ -16,12 +10,6 @@ CREATE TABLE popcoms (
     benjy STRING  
 );
 
-CREATE TABLE soncoms (
-    song STRING,
-    will STRING,
-    benjy STRING
-);
-
 CREATE TABLE rancoms (
     id INTEGER,
     will STRING,
@@ -31,3 +19,4 @@ CREATE TABLE rancoms (
 .mode csv
 .import csv/rancoms.csv rancoms
 .import csv/artcoms.csv artcoms
+.import csv/popcoms.csv popcoms
