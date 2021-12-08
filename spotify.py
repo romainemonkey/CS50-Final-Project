@@ -11,6 +11,7 @@ def getCache():
     os.environ['SPOTIPY_CLIENT_SECRET']= secret
     os.environ['SPOTIPY_REDIRECT_URI']='http://localhost:5000/callback'
 
+    # this builds the .cache file, which is necessary to access global spotify data
     username = ""
     client_credentials_manager = SpotifyClientCredentials(client_id=cid, client_secret=secret) 
     sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
@@ -24,7 +25,7 @@ def getCache():
 
     if token:
         sp = spotipy.Spotify(auth=token)
-        results = sp.current_user_top_tracks(limit=50,offset=0,time_range='medium_term')
+        results = sp.current_user_top_tracks(limit=1,offset=0,time_range='medium_term')
     else:
         print("Can't get token for", username)
 
