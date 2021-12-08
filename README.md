@@ -7,7 +7,7 @@ Our project, "Benjy and Will Listen to Your Music" (stylized in all lowercase), 
 Note that to use this program as intended, the user must have a Spotify account.
 
 ### Video
-The presentation video for our project is hosted at https://bit.ly/bawltym-video.
+The presentation video for our project is hosted at https://bit.ly/bawltymvideo.
 
 ### Installing the project
 The project files are hosted in a repository on GitHub at the following link: https://bit.ly/bawltym-code. The most recent version of the project can be downloaded by clicking **Code** -> **Download ZIP**.
