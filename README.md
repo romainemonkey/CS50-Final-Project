@@ -4,6 +4,8 @@
 ### Introduction
 Our project, "Benjy and Will Listen to Your Music" (stylized in all lowercase), is a web-based application utilizing the Spotify API. (Spotify is a popular music streaming service.) The user is prompted to connect their Spotify account to the website and upon doing so sees a list of comments from "Benjy and Will" analyzing their music taste. The project uses Python, Flask, HTML, CSS, SQL, and JavaScript.
 
+Note that to use this program as intended, the user must have a Spotify account.
+
 ### Video
 The presentation video for our project is hosted at https://bit.ly/bawltym-video.
 
@@ -18,20 +20,18 @@ We used the desktop edition of Visual Studio Code and recommend that staff do as
 
 in the command line. (The other libraries used, namely "sqlite", "random", "os", and "json", should come pre-installed in Python, but may be installed via the command line using a similar method if they are not.)
 
+### Authorizing user in Spotify
+Spotify's developer tools come with some restrictions. In particular, the Spotify account used to login for the app must be *authorized* in the app's Developer Dashboard in able to access some of the data pulled. This restriction is in place because the app is in "developer mode" (i.e., not public), so the user will have to be authorized manually.
+
+To do this, visit https://developer.spotify.com/dashboard/ and click "Log In". Input the following credentials:
+
+*username*: bawltymcs50@gmail.com
+*password*: devdevdev
+
+Click on the app called "Benjy and Will Listen to Your Music". Click on "Users and Access", then "Add New User", then input the name and email address associated with the user's Spotify account. (The name field can be anything.) The user should now be authorized, although it may take several minutes to update.
+
 ### Running the project
-Run the Python file "app.py". With our Python interpreter, this requires executing "python3 app.py" or "python app.py" in the command line, but implementations may vary depending on the user's setup of VS Code. The terminal should ouput something like:
-
-> Serving Flask app 'app' (lazy loading)
-> Environment: production
-> WARNING: This is a development server. Do not use it in a production deployment.
-> Use a production WSGI server instead.
-> Debug mode: on
-> Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
-> Restarting with stat
-> Debugger is active!
-> Debugger PIN: XXX-XXX-XXX
-
-and  server should be a website titled "Benjy and Will Listen to Your Music".
+Run the Python file "app.py". With our Python interpreter, this requires executing "python3 app.py" or "python app.py" in the command line, but implementations may vary depending on the user's setup of VS Code. Upon successful execution a website will open. If the user has previously used the server to log in, the website that opens will be the server homepage (called "Benjy and Will Listen to Your Music"). Otherwise, the website that opens will be a Spotify page prompting the user to log in. In this case, log in using the email that was authorized in the previous step, and click "Agree" when prompted to allow the app to access user data. The website will then redirect to the server homepage.
 
 ### Using the project
-The user may read the content of the main webpage. The hyperlinks are interesting but ancillary to the focus of the project. To proceed, the user should click the rectangular pink button that says "I badly want this." They will be prompted to log in with their Spotify username and password. Click the "Agree" button to allow the app to access the user's top artists. Then the user will be redirected back to the main webpage, and after between 15 and 30 seconds, to a new page that reads "Here's what we thought," followed by a list of comments. This concludes the primary function of the website. Repeating this process will yield a different list of comments, since they are randomly pulled from a predetermined database.
+The user may read the content of the main webpage. The hyperlinks are interesting but ancillary to the focus of the project. To proceed, the user should click the rectangular pink button that says "I badly want this." After between 15 and 30 seconds, the website will redirect to a new page that reads "Here's what we thought," followed by a list of comments. This concludes the primary function of the website. Repeating this process will yield a different list of comments, since they are randomly pulled from a predetermined database.
