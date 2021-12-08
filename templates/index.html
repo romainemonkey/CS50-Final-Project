@@ -8,9 +8,13 @@
 <div class="grid">
     <h1>benjy and will listen to your music</h1>
     <p>Have you ever wanted two people you don't know to listen to all the music you like, and then, without prompting and at length, give their own opinion on that music?</p>
+    
+    <!-- The first button is vestigial (hence display: none) but for some reason on Will's computer removing it breaks the website?? -->
     <form style="display:none;" action="/" method="post">
         <button class="button enabled" id="button-1" type="submit">I badly want this</button>
     </form>
+
+    <!-- Reload the page as a POST, which triggers the Spotify Python script -->
     <form action="/" method="post">
         <button class="button enabled" id="button-1" type="submit">I badly want this</button>
     </form>
@@ -29,6 +33,9 @@
 </marquee>
 
 <script>
+
+    // When the button is pressed, gray it out so that the user cannot press it again, and change
+    // the inner text to reflect this
     button1 = document.getElementById("button-1");
     button1.addEventListener("click", myFunction);
     
