@@ -84,6 +84,8 @@ def index():
         cursor = sqliteConnect.cursor()
         genres = {}
         meanPop = 0
+        # go through the artists, search for their associated genres, and then compile a dictionary
+        # genre : # of times that genre appears in the user's top track's artists
         for name in artistNames:
             sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
             result = sp.search(name)
@@ -99,20 +101,21 @@ def index():
                         genres[genre] = 1
             meanPop += artist["popularity"]
 
+        #calculate the average popularity, a metric determined by spotify, of the user's artists
         meanPop = meanPop/50
 
         sortedGenres = dict(sorted(genres.items(), key = lambda kv: kv[1]))
         
 
 
-        # artist test by benjy
+        # more determining of a module for sqlite3 use
         sqliteConnect = sqlite3.connect("test.db")
         cursor = sqliteConnect.cursor()
         comments = []
 
 
 
-        # add comments based on mean popularity of songs
+        # add comments based on mean popularity of songs, drawing from a predetermined table in test.db
         popCheck = 10 * round(meanPop/10)
         print("popCheck: " + str(popCheck))
         if popCheck < 40:
@@ -128,6 +131,7 @@ def index():
         uniqueArtists = list(uniqueArtists)
         # syntax:      !@artist@!   @#commenter: #@
 
+        # add comments based on individual artists, drawing from a predetermined table in test.db
         for artist in uniqueArtists:
             query = """SELECT benjy FROM artcoms WHERE artist = "{}" """.format(artist.lower())
             data = cursor.execute(query).fetchall()
@@ -138,13 +142,15 @@ def index():
             if data != [(u'',)] and data != [] and data != [(None,)]:
                 comments.append("@#Will: #@" + data[0][0])
 
-
+        # these comments are random comments, with FILL IN THE BLANK type syntax
         query = """SELECT * FROM rancoms"""
         rancoms = cursor.execute(query).fetchall()
         randartno = 5
 
+        # picks randartno random numbers from 0 to the number of unique artists in the user's top tracks
         randarts = random.sample(list(numpy.linspace(0,len(uniqueArtists)-1,len(uniqueArtists))),randartno)
 
+        # adds the random comments, filling in the blanks where ARTISTNAME exists
         randids = random.sample(list(numpy.linspace(0,len(rancoms)-2,len(rancoms)-1)),randartno)
         for i in range(len(randids)):
             if rancoms[int(randids[i])+1][2]:
@@ -158,17 +164,12 @@ def index():
                 newcomment = "@#Will: #@" + newcomment
                 comments.append(newcomment)
 
-        print(comments)
+        # close the cursor
         sqliteConnect.close()
 
+        # return and render the results page with said comments
         vals = random.sample(comments,len(comments))
         return render_template('results.html',vals=vals)
-
-# @app.route('/callback', methods=["GET"])
-# def callback():
-#     code = request.args.get("code")
-#     print(code)
-#     return "hello"
 
 # deal with this benjy
 @app.route('/results')
